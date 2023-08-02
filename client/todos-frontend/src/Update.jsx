@@ -7,8 +7,9 @@ import TextField from '@mui/material/TextField';
 import {Card,Typography,Button} from '@mui/material';
 import axios from "axios";
 import { todoState } from "./store/atoms/todo";  
-
-function Landing(){
+import { useParams } from "react-router-dom";
+function Update(){
+    const { id } = useParams();
   const [todos,settodos] = useRecoilState(todoState);
  const [title,setTitle] = useState(todos.title);
  const [description,setDescription] = useState(todos.description);
@@ -16,7 +17,7 @@ return(<>
     <div style={{"display":"flex"
 ,justifyContent:"center", paddingTop:150}}>
     <Typography variant={"h6"}>
-                Welcome to Todos
+                Update Todos
     </Typography>
      </div>
      <div style={{display: "flex", justifyContent: "center"}}>
@@ -46,7 +47,7 @@ return(<>
        <br />
        <br />
        <Button variant="contained" size="large" onClick={()=>{
-        axios.post('http://localhost:3000/todos',{
+        axios.put('http://localhost:3000/todos/' + id,{
         title : title,
         description: description
         },{
@@ -54,13 +55,11 @@ return(<>
             "Content-type": "application/json"
           }
         })
-        setDescription("")
-        setTitle("")
-       }}>Submit</Button>
+       }}>Update</Button>
        </Card>
        </div>
         </>
         
 )
 }
-export default Landing;
+export default Update;

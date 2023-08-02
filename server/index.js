@@ -3,7 +3,7 @@ const bodyParser = require('body-parser');
 const fs = require("fs");
 const cors = require("cors");
 const app = express();
-app.use(cors);
+app.use(cors());
 app.use(bodyParser.json());
 
 function findIndex(arr, id) {
@@ -84,7 +84,7 @@ app.delete('/todos/:id', (req, res) => {
 
   fs.readFile("todos.json", "utf8", (err, data) => {
     if (err) throw err;
-    const todos = JSON.parse(data);
+    var todos = JSON.parse(data);
     const todoIndex = findIndex(todos, parseInt(req.params.id));
     if (todoIndex === -1) {
       res.status(404).send();

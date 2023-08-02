@@ -17,9 +17,10 @@ import Box from '@mui/material/Box';
 import Paper from '@mui/material/Paper';
 import Appbar from './Appbar.jsx';
 import Todos from './Todos.jsx';
+import Update from './Update.jsx';
 
 function App() {
-  return (<>
+  return (
         <div style={{width: "100vw",
             height: "100vh",
             backgroundColor: "#eeeeee"}}
@@ -30,12 +31,13 @@ function App() {
       <Routes>
       <Route path='/' element={<Landing />}/>
       <Route path='/alltodos' element={<Todos />}/>
+      <Route path='/edittodos/:id' element={<Update />}/>
       </Routes>  
     </Router>
     </RecoilRoot>
     </div>
   
-    </>
+
   )
 }
 

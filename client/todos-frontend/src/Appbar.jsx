@@ -51,12 +51,15 @@ function Sidebar() {
   const list = (state) => (
     <div style={{width:250}}>
       <List>
-        {["Create","GetTodos"].map((text) => (
+        {["Create Todos","All Todos"].map((text) => (
           <ListItem key={text} disablePadding>
-            <ListItemButton onClick={(text) =>{
-              if(text == "Create"){
-                navigate('/');
-              }
+            <ListItemButton onClick={() =>{
+                  if(text == "All Todos"){
+                    navigate('/alltodos')
+                  }else{
+                    navigate('/')
+                  }
+
             }}>
               <ListItemText primary={text} />
             </ListItemButton>
