@@ -54,8 +54,9 @@ return(<>
           headers:{
             "Content-type": "application/json"
           }
-        })
-       }}>Update</Button>
+        }
+        )
+        alert('Todo is updated');}}>Update</Button>
        </Card>
        </div>
         </>

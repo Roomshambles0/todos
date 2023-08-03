@@ -23,7 +23,8 @@ export default function Todos(){
         })
         setTodos(response.data)
     }
-     init();
+    useEffect(()=>{init()},[]);
+     
    
 
     return <div style={{display: "flex", flexWrap: "wrap", justifyContent: "center"}}>
@@ -61,7 +62,8 @@ function Todo({todo}){
             "Content-type": "application/json"
           }
         })
-       }}>Complete</Button>
+      }
+       }>Complete</Button>
           </div>
         </CardActions>
         </Card>

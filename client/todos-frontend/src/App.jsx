@@ -19,12 +19,15 @@ import Appbar from './Appbar.jsx';
 import Todos from './Todos.jsx';
 import Update from './Update.jsx';
 
+
 function App() {
+
   return (
-        <div style={{width: "100vw",
-            height: "100vh",
-            backgroundColor: "#eeeeee"}}
-        >
+        <div>
+          <Paper elevation={3}  style={{ width: "100%",
+      minHeight: "100vh",
+      backgroundColor:'gray'
+      }}>
     <RecoilRoot>
     <Router> 
       <Appbar/> 
@@ -35,6 +38,7 @@ function App() {
       </Routes>  
     </Router>
     </RecoilRoot>
+    </Paper>
     </div>
   
 
