@@ -24,7 +24,7 @@ return(<>
         <TextField
         value={title}
         onChange={(e)=>{
-          setTitle( e.target.value);
+          setTitle(e.target.value);
           console.log(title);
         }}
           fullWidth={true}

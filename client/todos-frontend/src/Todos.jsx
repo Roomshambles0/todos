@@ -8,25 +8,40 @@ import { useRecoilState, useRecoilValue, useSetRecoilState } from "recoil";
 import { todotitle } from "./store/selectors/todotitle";
 import { tododescription } from "./store/selectors/tododescription";
 import { todoState } from "./store/atoms/todo";
+import { todosState } from "./store/atoms/todos";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
 import Divider from '@mui/material/Divider';
 
 
-export default function Todos(){
- const [Todos, setTodos] = useState([]);
-    const init = async () => {
-        const response = await axios.get(`http://localhost:3000/todos`, {
-            headers: {
-              "Content-type": "application/json"
-            }
-        })
-        setTodos(response.data)
-    }
-    useEffect(()=>{init()},[]);
-     
-   
+function usefindIndex(arr, id) {
+  for (let i = 0; i < arr.length; i++) {
+    if (arr[i].id === id) return i;
+  }
+  return -1;
+}
 
+  function useremoveAtIndex(arr, index) {
+    let newArray = [];
+    for (let i = 0; i < arr.length; i++) {
+      if (i !== index) newArray.push(arr[i]);
+    }
+    return newArray;
+  }
+
+
+export default function Todos(){
+  const [Todos, setTodos] = useRecoilState(todosState);
+  const init = async () => {
+      const response = await axios.get(`http://localhost:3000/todos`, {
+          headers: {
+            "Content-type": "application/json"
+          }
+      })
+      setTodos(response.data)
+  }
+  useEffect(()=>{init()},[]);
+ 
     return <div style={{display: "flex", flexWrap: "wrap", justifyContent: "center"}}>
         {Todos.map(todo => {
             return <Todo todo ={todo}/>}
@@ -36,6 +51,7 @@ export default function Todos(){
 
 
 function Todo({todo}){
+  const [Todos, setTodos] = useRecoilState(todosState);
   const navigate = useNavigate();
     return<>
    
@@ -62,12 +78,14 @@ function Todo({todo}){
             "Content-type": "application/json"
           }
         })
+     const index = usefindIndex(Todos,todo.id);
+     setTodos(useremoveAtIndex(Todos,index));
       }
        }>Complete</Button>
           </div>
         </CardActions>
         </Card>
-       
+
         </>
        
 }
