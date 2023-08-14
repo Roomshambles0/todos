@@ -3,8 +3,15 @@ const bodyParser = require('body-parser');
 const fs = require("fs");
 const cors = require("cors");
 const app = express();
+const {z} =require("zod");
 app.use(cors());
 app.use(bodyParser.json());
+
+
+const todosinput = z.object({
+title:z.string(),
+description:z.string(),
+})
 
 function findIndex(arr, id) {
   for (let i = 0; i < arr.length; i++) {
@@ -42,6 +49,12 @@ app.get('/todos/:id', (req, res) => {
 });
 
 app.post('/todos', (req, res) => {
+  const parsedresponce = todosinput.safeParse(req.body);
+  if (!parsedresponce.success){
+    return res.status(411).json({
+      msg: "error while parsing"
+    })
+  }
   const newTodo = {
     id: Math.floor(Math.random() * 1000000), // unique random id
     title: req.body.title,
